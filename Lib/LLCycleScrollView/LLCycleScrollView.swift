@@ -529,12 +529,23 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
             collectionView.scrollToItem(at: IndexPath.init(item: targetIndex, section: 0), at: position, animated: false)
         }
     }
-    
+    var counterForVideo = 0
     // MARK: Actions
     @objc func automaticScroll() {
         if totalItemsCount == 0 {return}
-        let targetIndex = currentIndex() + 1
-        scollToIndex(targetIndex: targetIndex)
+       
+        if (currentIndex()%imagePaths.count) == imagePaths.count - 1 {
+            if counterForVideo == 3 {
+                 let targetIndex = currentIndex() + 1
+                 scollToIndex(targetIndex: targetIndex)
+                counterForVideo = 0
+            } else {
+                 counterForVideo += 1
+            }
+        } else {
+             let targetIndex = currentIndex() + 1
+            scollToIndex(targetIndex: targetIndex)
+        }
     }
     
     func scollToIndex(targetIndex: Int) {
