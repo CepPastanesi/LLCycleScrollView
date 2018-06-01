@@ -1,5 +1,5 @@
 PODS:
-  - Kingfisher (4.0.1)
+  - Kingfisher (4.8.0)
   - YouTubePlayer (0.4.0)
 
 DEPENDENCIES:
@@ -12,7 +12,7 @@ SPEC REPOS:
     - YouTubePlayer
 
 SPEC CHECKSUMS:
-  Kingfisher: b771785e9461ed4b8686d40e7145f9e58100cb24
+  Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
 PODFILE CHECKSUM: 0d69c4dddad42020c24d69e977a7c3f7551ab46b
