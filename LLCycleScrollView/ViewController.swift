@@ -43,6 +43,7 @@ class ViewController: UIViewController {
         
         // Storyboard Demo
         self.storyBoardBanner.imagePaths = imagesURLStrings
+        self.storyBoardBanner.youtubeVideoId = "0HH5WXPZDHQ"
         self.storyBoardBanner.titles = titles
         
         // 新增图片显示控制

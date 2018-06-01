@@ -8,7 +8,7 @@
 
 import UIKit
 import Kingfisher
-
+import YouTubePlayer
 public enum PageControlStyle {
     case none
     case system
@@ -196,6 +196,16 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         }
     }
     
+    // imagePathsDan Sonra Set Edilmeli
+    open var youtubeVideoId : String = "" {
+        didSet {
+        if youtubeVideoId != "" {
+            self.imagePaths.append(youtubeVideoId)
+            
+        }
+        }
+        
+    }
     
     // MARK: 数据源
     // ImagePaths
@@ -363,6 +373,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     private func setupMainView() {
         collectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: flowLayout!)
         collectionView.register(LLCycleScrollViewCell.self, forCellWithReuseIdentifier: identifier)
+        collectionView.register(UINib(nibName: "YoutubePlayerCell", bundle: nil), forCellWithReuseIdentifier: "youtubePlayerCell")
         collectionView.backgroundColor = collectionViewBackgroundColor
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -560,6 +571,17 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     }
     
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let itemIndex = pageControlIndexWithCurrentCellIndex(index: indexPath.item)
+        
+        
+        if itemIndex == imagePaths.count - 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "youtubePlayerCell", for: indexPath) as! YoutubePlayerCell
+            cell.configureWith(videoId: imagePaths[itemIndex])
+            cell.delegate = self
+            return cell
+        }
+        
         let cell: LLCycleScrollViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! LLCycleScrollViewCell
         // Setting
         cell.titleFont = font
@@ -691,4 +713,20 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         }
     }
  
+}
+
+extension LLCycleScrollView: YouTubePlayerDelegate {
+    public func playerStateChanged(_ videoPlayer: YouTubePlayerView, playerState: YouTubePlayerState) {
+        switch playerState {
+        case .Buffering,.Playing:
+            if autoScroll! {
+                invalidateTimer()
+            }
+        case .Paused:
+            if autoScroll! {
+                setupTimer()
+            }
+        default: break
+        }
+    }
 }

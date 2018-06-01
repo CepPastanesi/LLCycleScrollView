@@ -1,12 +1,20 @@
 PODS:
   - Kingfisher (4.0.1)
+  - YouTubePlayer (0.4.0)
 
 DEPENDENCIES:
-  - Kingfisher (~> 4.0)
+  - Kingfisher
+  - YouTubePlayer
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Kingfisher
+    - YouTubePlayer
 
 SPEC CHECKSUMS:
   Kingfisher: b771785e9461ed4b8686d40e7145f9e58100cb24
+  YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
-PODFILE CHECKSUM: a6318c7979dad48474395deeb79b20be7b59ce36
+PODFILE CHECKSUM: 0d69c4dddad42020c24d69e977a7c3f7551ab46b
 
-COCOAPODS: 1.3.0.beta.2
+COCOAPODS: 1.5.0
