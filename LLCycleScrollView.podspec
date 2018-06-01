@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.source_files  = "Lib/LLCycleScrollView/**/*.{swift}"
   s.resource  = "Lib/LLCycleScrollView.bundle"
   s.dependency 'Kingfisher'
-s.dependency = 'YouTubePlayer'
+  s.dependency  'YouTubePlayer'
   s.requires_arc = true
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
 end
