@@ -373,7 +373,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     private func setupMainView() {
         collectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: flowLayout!)
         collectionView.register(LLCycleScrollViewCell.self, forCellWithReuseIdentifier: identifier)
-        collectionView.register(UINib(nibName: "YoutubePlayerCell", bundle: nil), forCellWithReuseIdentifier: "youtubePlayerCell")
+        collectionView.register(YoutubePlayerCell.self, forCellWithReuseIdentifier: "youtubePlayerCell")
         collectionView.backgroundColor = collectionViewBackgroundColor
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false

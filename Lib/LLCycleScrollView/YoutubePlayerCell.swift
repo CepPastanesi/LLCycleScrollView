@@ -11,13 +11,32 @@ import YouTubePlayer
 
 class YoutubePlayerCell: UICollectionViewCell {
 
-    @IBOutlet weak var playerView: YouTubePlayerView!
+    var playerView: YouTubePlayerView?
 
     var delegate : YouTubePlayerDelegate?
-    
+    override func awakeFromNib() {
+       
+      
+    }
     func configureWith(videoId : String) {
-        self.playerView.loadVideoID(videoId)
-        self.playerView.delegate = self
+        self.playerView = YouTubePlayerView(frame: .zero)
+        self.addSubview(playerView!)
+        self.playerView?.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 9.0, *) {
+            self.playerView?.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            self.playerView?.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+            self.playerView?.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+            self.playerView?.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        } else {
+            // Fallback on earlier versions
+        }
+        playerView?.playerVars = [
+            "playsinline": "1",
+            "controls": "1",
+            "showinfo": "0"
+            ] as YouTubePlayerView.YouTubePlayerParameters
+        self.playerView?.loadVideoID(videoId)
+        self.playerView?.delegate = self
     }
 
 }
