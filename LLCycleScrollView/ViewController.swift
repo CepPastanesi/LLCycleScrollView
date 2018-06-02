@@ -137,6 +137,9 @@ class ViewController: UIViewController {
 
 extension ViewController: LLCycleScrollViewDelegate {
     func cycleScrollView(_ cycleScrollView: LLCycleScrollView, didSelectItemIndex index: NSInteger) {
+        
+    }
+    func cycleScrollView(_ cycleScrollView: LLCycleScrollView, showingCellType index: NSInteger) {
         print("协议：当前点击文本的位置为:\(index)")
     }
 }

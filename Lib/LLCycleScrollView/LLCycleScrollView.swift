@@ -26,6 +26,9 @@ public enum PageControlPosition {
 
 @objc public protocol LLCycleScrollViewDelegate: class {
     @objc func cycleScrollView(_ cycleScrollView: LLCycleScrollView, didSelectItemIndex index: NSInteger)
+    @objc func cycleScrollView(_ cycleScrollView: LLCycleScrollView, showingCellType : NSInteger)
+
+    
 }
 
 public typealias LLdidSelectItemAtIndexClosure = (NSInteger) -> Void
@@ -538,7 +541,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
             if counterForVideo == 3 {
                  let targetIndex = currentIndex() + 1
                  scollToIndex(targetIndex: targetIndex)
-                counterForVideo = 0
+                 counterForVideo = 0
             } else {
                  counterForVideo += 1
             }
@@ -556,6 +559,11 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
             return
         }
         collectionView.scrollToItem(at: IndexPath.init(item: targetIndex, section: 0), at: position, animated: true)
+        if (currentIndex()%imagePaths.count) == imagePaths.count - 1 {
+           delegate?.cycleScrollView(self, didSelectItemIndex: 0)
+        } else {
+            delegate?.cycleScrollView(self, didSelectItemIndex: 1)
+        }
     }
     
     func currentIndex() -> NSInteger {
@@ -580,7 +588,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return totalItemsCount == 0 ? 1:totalItemsCount
     }
-    
+
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let itemIndex = pageControlIndexWithCurrentCellIndex(index: indexPath.item)
@@ -644,7 +652,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         }
         return cell
     }
-    
+
     // MARK: UICollectionViewDelegate
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let didSelectItemAtIndexPath = lldidSelectItemAtIndex {
@@ -709,7 +717,11 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         }
         
     }
-    
+    public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath ) as? YoutubePlayerCell {
+            cell.playerView?.pause()
+        }
+    }
     // MARK: ScrollView Begin Drag
     open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if autoScroll! {

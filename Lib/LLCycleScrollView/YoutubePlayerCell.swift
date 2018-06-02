@@ -38,6 +38,7 @@ class YoutubePlayerCell: UICollectionViewCell {
         self.playerView?.loadVideoID(videoId)
         self.playerView?.delegate = self
     }
+    
 
 }
 extension YoutubePlayerCell: YouTubePlayerDelegate {
