@@ -729,9 +729,12 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         if (indexPath.row%imagePaths.count) == imagePaths.count - 1 {
             if let delegate = self.delegate {
                 delegate.cycleScrollView(self, showingCellType: 1)
-            } else {
-                delegate?.cycleScrollView(self, showingCellType: 0)
             }
+        }else {
+            if let delegate = self.delegate {
+                delegate.cycleScrollView(self, showingCellType: 1)
+            }
+            
         }
     }
     // MARK: ScrollView Begin Drag
