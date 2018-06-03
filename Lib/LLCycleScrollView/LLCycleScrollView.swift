@@ -557,15 +557,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
             return
         }
         collectionView.scrollToItem(at: IndexPath.init(item: targetIndex, section: 0), at: position, animated: true)
-        if (currentIndex()%imagePaths.count) == imagePaths.count - 1 {
-        if let  delegate = delegate {
-                delegate.cycleScrollView(self, showingCellType: 1)
-            }
-        } else {
-            if let  delegate = delegate {
-                delegate.cycleScrollView(self, showingCellType: 0)
-            }
-        }
+       
     }
     
     func currentIndex() -> NSInteger {
@@ -721,10 +713,20 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
     }
     public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if (indexPath.row%imagePaths.count) == imagePaths.count - 1 {
-            print("bi tane bulduk : \(indexPath.row)")
-
+            if let cell = cell as? YoutubePlayerCell {
+               cell.playerView?.pause()
+            }
         }
       
+    }
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if (indexPath.row%imagePaths.count) == imagePaths.count - 1 {
+            if let delegate = self.delegate {
+                delegate.cycleScrollView(self, showingCellType: 1)
+            } else {
+                delegate?.cycleScrollView(self, showingCellType: 0)
+            }
+        }
     }
     // MARK: ScrollView Begin Drag
     open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
