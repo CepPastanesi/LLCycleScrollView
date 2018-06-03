@@ -732,7 +732,7 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
             }
         }else {
             if let delegate = self.delegate {
-                delegate.cycleScrollView(self, showingCellType: 1)
+                delegate.cycleScrollView(self, showingCellType: 0)
             }
             
         }
