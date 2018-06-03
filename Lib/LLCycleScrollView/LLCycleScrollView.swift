@@ -27,8 +27,6 @@ public enum PageControlPosition {
 @objc public protocol LLCycleScrollViewDelegate: class {
     @objc func cycleScrollView(_ cycleScrollView: LLCycleScrollView, didSelectItemIndex index: NSInteger)
     @objc func cycleScrollView(_ cycleScrollView: LLCycleScrollView, showingCellType : NSInteger)
-
-    
 }
 
 public typealias LLdidSelectItemAtIndexClosure = (NSInteger) -> Void
@@ -560,9 +558,13 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         }
         collectionView.scrollToItem(at: IndexPath.init(item: targetIndex, section: 0), at: position, animated: true)
         if (currentIndex()%imagePaths.count) == imagePaths.count - 1 {
-           delegate?.cycleScrollView(self, didSelectItemIndex: 0)
+        if let  delegate = delegate {
+                delegate.cycleScrollView(self, showingCellType: 1)
+            }
         } else {
-            delegate?.cycleScrollView(self, didSelectItemIndex: 1)
+            if let  delegate = delegate {
+                delegate.cycleScrollView(self, showingCellType: 0)
+            }
         }
     }
     
