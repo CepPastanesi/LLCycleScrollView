@@ -712,6 +712,9 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         
     }
     public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if imagePaths.count  == 0 {
+            return
+        }
         if (indexPath.row%imagePaths.count) == imagePaths.count - 1 {
             if let cell = cell as? YoutubePlayerCell {
                cell.playerView?.pause()
@@ -720,6 +723,9 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
       
     }
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if imagePaths.count  == 0 {
+            return
+        }
         if (indexPath.row%imagePaths.count) == imagePaths.count - 1 {
             if let delegate = self.delegate {
                 delegate.cycleScrollView(self, showingCellType: 1)
