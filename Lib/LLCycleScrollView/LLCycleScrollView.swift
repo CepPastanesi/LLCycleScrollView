@@ -720,9 +720,11 @@ open class LLCycleScrollView: UIView, UICollectionViewDelegate, UICollectionView
         
     }
     public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath ) as? YoutubePlayerCell {
-            cell.playerView?.pause()
+        if (indexPath.row%imagePaths.count) == imagePaths.count - 1 {
+            print("bi tane bulduk : \(indexPath.row)")
+
         }
+      
     }
     // MARK: ScrollView Begin Drag
     open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
